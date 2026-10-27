@@ -1,0 +1,47 @@
+@baseUrl = http://localhost:8080
+# Paste the values returned by "Register a device".
+@deviceId = 00000000-0000-0000-0000-000000000000
+@deviceToken = paste-token-here
+
+### Health
+GET {{baseUrl}}/health
+
+### Register a device
+POST {{baseUrl}}/api/devices
+Content-Type: application/json
+
+{ "platform": "web" }
+
+### Upload a batch
+POST {{baseUrl}}/api/locations/batch
+Content-Type: application/json
+X-Device-Id: {{deviceId}}
+X-Device-Token: {{deviceToken}}
+
+{
+  "points": [
+    {
+      "clientPointId": "{{$guid}}",
+      "latitude": 10.7769,
+      "longitude": 106.7009,
+      "accuracy": 12.5,
+      "recordedAt": "{{$datetime iso8601}}",
+      "source": "web"
+    }
+  ]
+}
+
+### Latest point
+GET {{baseUrl}}/api/locations/latest
+X-Device-Id: {{deviceId}}
+X-Device-Token: {{deviceToken}}
+
+### Recent points
+GET {{baseUrl}}/api/locations?limit=50
+X-Device-Id: {{deviceId}}
+X-Device-Token: {{deviceToken}}
+
+### Delete my device and data
+DELETE {{baseUrl}}/api/devices/me
+X-Device-Id: {{deviceId}}
+X-Device-Token: {{deviceToken}}

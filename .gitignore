@@ -1,0 +1,24 @@
+# .NET
+**/bin/
+**/obj/
+**/TestResults/
+*.user
+.vs/
+
+# Secrets: never commit these
+.env
+.env.*
+!.env.example
+**/secrets.json
+*.keystore
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+credentials.json
+
+# Editors / OS
+.idea/
+.DS_Store
+Thumbs.db

@@ -1,0 +1,40 @@
+# Local development only: throwaway credentials, never used on Render.
+#   docker compose up -d --build     # start Postgres + API on http://localhost:8080
+#   docker compose down              # stop (add -v to also delete the database)
+services:
+  db:
+    image: postgres:17
+    container_name: lt-pg
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: dev
+      POSTGRES_DB: location_tracker
+    ports:
+      - "5432:5432"
+    volumes:
+      - lt-pg-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d location_tracker"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+
+  api:
+    build: ./backend
+    image: location-tracker-api
+    container_name: lt-api
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      # Same form Render provides, so the URI conversion in Program.cs is exercised locally too.
+      DATABASE_URL: postgresql://postgres:dev@db:5432/location_tracker
+      PORT: "8080"
+      ASPNETCORE_ENVIRONMENT: Production
+      Cors__AllowedOrigins: http://localhost:8081
+      Retention__Days: "30"
+    ports:
+      - "8080:8080"
+
+volumes:
+  lt-pg-data:

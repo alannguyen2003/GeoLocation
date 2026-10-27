@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- GeoNames place names (CC BY 4.0), regenerated with tools/build-places.cs. -->
+    <EmbeddedResource Include="Places\places.tsv.gz" LogicalName="LocationTracker.Data.Places.places.tsv.gz" />
+    <EmbeddedResource Include="Places\countries.tsv" LogicalName="LocationTracker.Data.Places.countries.tsv" />
+  </ItemGroup>
+
+</Project>

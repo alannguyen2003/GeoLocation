@@ -1,0 +1,39 @@
+# Render Blueprint for the PoC. Both resources use the free plan: if `plan` is omitted,
+# Render creates paid instances. Region and postgresMajorVersion cannot be changed later.
+services:
+  - type: web
+    name: location-tracker-api
+    runtime: docker
+    plan: free
+    region: singapore
+    # No rootDir on purpose: Render's docs disagree on whether dockerfilePath/dockerContext are
+    # relative to the repo root or to rootDir. Without rootDir both readings give the same paths.
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    # Only changes that end up in the image trigger a deploy. Paths are relative to the repo root.
+    # backend/tools only regenerates the place data; the generated files live under backend/src,
+    # so committing new data still deploys.
+    buildFilter:
+      paths:
+        - backend/**
+      ignoredPaths:
+        - backend/tests/**
+        - backend/tools/**
+        - backend/**/*.md
+    healthCheckPath: /health
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: location-tracker-db
+          property: connectionString
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: Retention__Days
+        value: "30"
+      - key: Cors__AllowedOrigins
+        sync: false
+databases:
+  - name: location-tracker-db
+    plan: free
+    region: singapore
+    postgresMajorVersion: "17"

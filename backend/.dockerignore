@@ -1,0 +1,14 @@
+**/bin/
+**/obj/
+**/.vs/
+**/.vscode/
+**/*.user
+**/TestResults/
+tests/
+# Dev-only generator; its output is already under src/LocationTracker.Data/Places/.
+tools/
+Dockerfile
+.dockerignore
+**/appsettings.Development.json
+**/secrets.json
+**/.env

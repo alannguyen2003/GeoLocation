@@ -1,0 +1,56 @@
+{
+  "expo": {
+    "name": "Location Tracker",
+    "slug": "location-tracker",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "locationtracker",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "icon": "./assets/expo.icon",
+      "bundleIdentifier": "com.nashtech.poc.locationtracker"
+    },
+    "android": {
+      "package": "com.nashtech.poc.locationtracker",
+      "adaptiveIcon": {
+        "backgroundColor": "#E6F4FE",
+        "foregroundImage": "./assets/images/android-icon-foreground.png",
+        "backgroundImage": "./assets/images/android-icon-background.png",
+        "monochromeImage": "./assets/images/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "output": "single",
+      "favicon": "./assets/images/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#208AEF",
+          "image": "./assets/images/splash-icon.png",
+          "imageWidth": 76
+        }
+      ],
+      "expo-secure-store",
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Location Tracker ghi lại vị trí của thiết bị khi bạn bật theo dõi, để lưu lịch sử vị trí lên máy chủ của dự án và hiển thị cho bạn trong mục Lịch sử.",
+          "locationAlwaysAndWhenInUsePermission": "Nếu bạn bật Theo dõi nền, Location Tracker tiếp tục ghi lại vị trí của thiết bị cả khi ứng dụng đã đóng hoặc không được sử dụng, để lịch sử vị trí không bị gián đoạn. Bạn có thể tắt hoặc xoá dữ liệu bất cứ lúc nào.",
+          "motionUsagePermission": false,
+          "isAndroidBackgroundLocationEnabled": true,
+          "isAndroidForegroundServiceEnabled": true,
+          "isIosBackgroundLocationEnabled": true
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    }
+  }
+}
